@@ -217,3 +217,384 @@ st.markdown("""
     
     .stSelectbox > div > div:hover {
         border-color: var(--accent-blue) !important;
+    }
+    
+    /* Button Styling */
+    .stButton > button {
+        background: var(--weather-gradient) !important;
+        color: #0c1445 !important;
+        border: none !important;
+        padding: 0.875rem 2.5rem !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        border-radius: 14px !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 6px 25px rgba(79, 172, 254, 0.4) !important;
+        font-family: 'Outfit', sans-serif !important;
+        letter-spacing: 0.3px;
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-3px) scale(1.02) !important;
+        box-shadow: 0 12px 35px rgba(79, 172, 254, 0.5) !important;
+    }
+    
+    .stButton > button:active {
+        transform: translateY(0) scale(0.98) !important;
+    }
+    
+    /* Info, Spinner & Alert Styling */
+    .stInfo, .stWarning, .stError, .stSuccess {
+        background: rgba(79, 172, 254, 0.1) !important;
+        border: 1px solid rgba(79, 172, 254, 0.3) !important;
+        border-radius: 12px !important;
+        backdrop-filter: blur(10px) !important;
+    }
+    
+    .stSpinner > div {
+        border-color: var(--accent-blue) transparent transparent transparent !important;
+    }
+    
+    /* Chart Container */
+    .chart-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 1.5rem;
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Dataframe Styling */
+    .stDataFrame {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-radius: 16px !important;
+        overflow: hidden;
+    }
+    
+    [data-testid="stDataFrame"] > div {
+        background: transparent !important;
+    }
+    
+    /* Metric Cards */
+    .metric-card {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(240, 147, 251, 0.15) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 1.25rem 1.5rem;
+        text-align: center;
+        backdrop-filter: blur(12px);
+    }
+    
+    .metric-value {
+        font-family: 'Outfit', sans-serif;
+        font-size: 2.25rem;
+        font-weight: 700;
+        background: var(--weather-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .metric-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-top: 0.25rem;
+        font-weight: 500;
+    }
+    
+    /* Weather Icons Animation */
+    .weather-icon-float {
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    /* Section Headers */
+    .section-header {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .section-header::after {
+        content: '';
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent-blue), transparent);
+        border-radius: 1px;
+    }
+    
+    /* Footer Styling */
+    .footer {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-top: 3rem;
+        text-align: center;
+        backdrop-filter: blur(16px);
+    }
+    
+    .footer-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+    }
+    
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .social-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .social-btn.linkedin {
+        background: linear-gradient(135deg, #0077B5 0%, #00a0dc 100%);
+        color: white;
+    }
+    
+    .social-btn.github {
+        background: linear-gradient(135deg, #24292e 0%, #4d5560 100%);
+        color: white;
+    }
+    
+    .social-btn.portfolio {
+        background: var(--primary-gradient);
+        color: white;
+    }
+    
+    .social-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .footer-credit {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+    }
+    
+    .footer-credit span {
+        color: var(--accent-pink);
+    }
+    
+    /* City Card */
+    .city-card {
+        background: linear-gradient(135deg, rgba(79, 172, 254, 0.2) 0%, rgba(0, 242, 254, 0.1) 100%);
+        border: 1px solid rgba(79, 172, 254, 0.25);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .city-name {
+        font-family: 'Outfit', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    /* Pulse Animation */
+    .pulse {
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+    }
+    
+    /* Temperature Display */
+    .temp-display {
+        font-family: 'Outfit', sans-serif;
+        font-size: 4rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #f093fb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        .main .block-container {
+            padding: 1rem !important;
+        }
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# =========================
+# 1. Model architecture 🧠
+# =========================
+
+FEATURE_COLS = ["temperature_2m", "relative_humidity_2m", "pressure_msl", "wind_speed_10m"]
+TARGET_COL = "temperature_2m"
+LOOKBACK_HOURS = 30 * 24   # 720
+HORIZON_HOURS = 7 * 24     # 168
+
+def build_lstm_model(timesteps, num_features, horizon):
+    model = models.Sequential([
+        layers.Input(shape=(timesteps, num_features)),
+        layers.LSTM(64, return_sequences=True),
+        layers.Dropout(0.2),
+        layers.LSTM(64),
+        layers.Dropout(0.2),
+        layers.Dense(128, activation="relu"),
+        layers.Dense(horizon)  # 168 outputs
+    ])
+    return model
+
+@st.cache_resource
+def load_lstm_model():
+    timesteps = LOOKBACK_HOURS
+    num_features = len(FEATURE_COLS)
+    horizon = HORIZON_HOURS
+
+    model = build_lstm_model(timesteps, num_features, horizon)
+    model.load_weights("weather_lstm_7day.weights.h5")
+    model.compile(optimizer="adam", loss="mse")
+    return model
+
+model = load_lstm_model()
+
+# =========================
+# 2. Data loading & scalers 📊
+# =========================
+
+@st.cache_data
+def load_history():
+    df = pd.read_csv("weather_hourly_history_openmeteo.csv", parse_dates=["time"])
+    df = df.sort_values(["city", "time"]).reset_index(drop=True)
+    return df
+
+history_df = load_history()
+
+@st.cache_resource
+def build_city_scalers(df):
+    scalers = {}
+    for c in df["city"].unique():
+        city_df = df[df["city"] == c]
+        scaler = MinMaxScaler()
+        scaler.fit(city_df[FEATURE_COLS])
+        scalers[c] = scaler
+    return scalers
+
+scalers = build_city_scalers(history_df)
+
+def inverse_temp(scaled_temp_1d, scaler):
+    dummy = np.zeros((len(scaled_temp_1d), len(FEATURE_COLS)))
+    dummy[:, FEATURE_COLS.index("temperature_2m")] = scaled_temp_1d
+    inv = scaler.inverse_transform(dummy)
+    return inv[:, FEATURE_COLS.index("temperature_2m")]
+
+# =========================
+# 3. Window + forecast utils 🔁
+# =========================
+
+def build_last_window_for_city(df, city, lookback_hours):
+    city_df = df[df["city"] == city].sort_values("time")
+    if len(city_df) < lookback_hours:
+        raise ValueError(f"Not enough history for {city}. Need {lookback_hours} hours.")
+
+    city_df_hist = city_df.tail(lookback_hours)
+    scaler = scalers[city]
+    feats_scaled = scaler.transform(city_df_hist[FEATURE_COLS])
+    X = feats_scaled[np.newaxis, :, :]
+    last_time = city_df_hist["time"].iloc[-1]
+    return X, scaler, last_time
+
+def forecast_7_days(model, X_sample, scaler, last_time):
+    y_pred = model.predict(X_sample, verbose=0)[0]
+    y_pred_c = inverse_temp(y_pred, scaler)
+
+    hours = np.arange(HORIZON_HOURS)
+    times_future = [last_time + timedelta(hours=int(h+1)) for h in hours]
+
+    df_full = pd.DataFrame({
+        "time": times_future,
+        "hour_ahead": hours,
+        "pred_temp_c": y_pred_c
+    })
+
+    mask_display = (df_full["hour_ahead"] < 24) | (
+        (df_full["hour_ahead"] >= 24) &
+        (((df_full["hour_ahead"] - 24) % 4) == 0)
+    )
+    df_display = df_full[mask_display].reset_index(drop=True)
+    return df_full, df_display
+
+# =========================
+# City Icons Mapping
+# =========================
+CITY_ICONS = {
+    "delhi": "🏛️",
+    "mumbai": "🌊",
+    "new york": "🗽",
+    "los angeles": "🌴",
+    "new_york": "🗽",
+    "los_angeles": "🌴"
+}
+
+def get_city_icon(city):
+    return CITY_ICONS.get(city.lower().replace(" ", "_"), "🏙️")
+
+def get_temp_emoji(temp):
+    if temp < 0:
+        return "❄️"
+    elif temp < 10:
+        return "🥶"
+    elif temp < 20:
+        return "🌤️"
+    elif temp < 30:
+        return "☀️"
+    elif temp < 40:
+        return "🔥"
+    else:
+        return "🌡️"
+
+# =========================
+# 4. Streamlit UI 🎛️
+# =========================
+
+# Hero Header
+st.markdown("""
+<div class="hero-header">
+    <div class="hero-title">🌤️ WeatherLens AI</div>
+    <div class="hero-subtitle">Advanced 7-Day Weather Forecasting powered by Deep Learning</div>
+    <div class="hero-badge">
+        <span>🧠</span>
+        <span>LSTM Neural Network</span>
+        <span>•</span>
+        <span>📊</span>
+        <span>168-Hour Predictions</span>
+    </div>
+</div>
+""", unsafe_allow_html=True)

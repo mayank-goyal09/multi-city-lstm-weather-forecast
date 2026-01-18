@@ -598,3 +598,324 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
+# Feature Cards
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-icon weather-icon-float">🧠</div>
+        <div class="feature-title">LSTM AI Model</div>
+        <div class="feature-desc">Recurrent Neural Network trained on real weather data</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-icon weather-icon-float">📅</div>
+        <div class="feature-title">30-Day History</div>
+        <div class="feature-desc">720 hours of data for accurate predictions</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-icon weather-icon-float">🌡️</div>
+        <div class="feature-title">7-Day Forecast</div>
+        <div class="feature-desc">168 hours of temperature predictions</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col4:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-icon weather-icon-float">🌍</div>
+        <div class="feature-title">4 Major Cities</div>
+        <div class="feature-desc">Delhi, Mumbai, New York, Los Angeles</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# City Selection Section
+st.markdown('<div class="section-header">🎯 Select Your City</div>', unsafe_allow_html=True)
+
+col_select, col_btn = st.columns([3, 1])
+
+city_options = sorted(history_df["city"].unique())
+
+with col_select:
+    city = st.selectbox(
+        "Choose a city for weather forecast",
+        city_options,
+        index=0,
+        label_visibility="collapsed"
+    )
+
+with col_btn:
+    generate_btn = st.button("🚀 Generate Forecast", use_container_width=True)
+
+# Generate Forecast
+if generate_btn:
+    try:
+        with st.spinner("🌤️ Analyzing weather patterns with AI..."):
+            X_sample, scaler, last_time = build_last_window_for_city(
+                history_df, city, LOOKBACK_HOURS
+            )
+            df_full, df_display = forecast_7_days(model, X_sample, scaler, last_time)
+
+        # City Header with Current Stats
+        city_icon = get_city_icon(city)
+        avg_temp = df_full["pred_temp_c"].mean()
+        min_temp = df_full["pred_temp_c"].min()
+        max_temp = df_full["pred_temp_c"].max()
+        
+        st.markdown(f"""
+        <div class="city-card">
+            <div class="city-name">{city_icon} {city.title()}</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Metrics Row
+        m1, m2, m3, m4 = st.columns(4)
+        
+        with m1:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-value">{avg_temp:.1f}°C</div>
+                <div class="metric-label">📊 Avg Temperature</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with m2:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-value">{max_temp:.1f}°C</div>
+                <div class="metric-label">🔥 Max Temperature</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with m3:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-value">{min_temp:.1f}°C</div>
+                <div class="metric-label">❄️ Min Temperature</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with m4:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-value">{max_temp - min_temp:.1f}°C</div>
+                <div class="metric-label">📈 Temperature Range</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # Charts Section
+        st.markdown('<div class="section-header">📊 Temperature Forecast</div>', unsafe_allow_html=True)
+        
+        # Main Temperature Chart with Plotly
+        fig = go.Figure()
+        
+        # Add gradient fill area
+        fig.add_trace(go.Scatter(
+            x=df_full["time"],
+            y=df_full["pred_temp_c"],
+            fill='tozeroy',
+            fillcolor='rgba(79, 172, 254, 0.2)',
+            line=dict(color='rgba(0,0,0,0)'),
+            showlegend=False,
+            hoverinfo='skip'
+        ))
+        
+        # Add main line
+        fig.add_trace(go.Scatter(
+            x=df_full["time"],
+            y=df_full["pred_temp_c"],
+            mode='lines',
+            line=dict(
+                color='#4facfe',
+                width=3,
+                shape='spline'
+            ),
+            name='Temperature',
+            hovertemplate='<b>%{x}</b><br>Temperature: %{y:.1f}°C<extra></extra>'
+        ))
+        
+        # Add markers for key points
+        fig.add_trace(go.Scatter(
+            x=df_display["time"],
+            y=df_display["pred_temp_c"],
+            mode='markers',
+            marker=dict(
+                size=8,
+                color='#f093fb',
+                symbol='circle',
+                line=dict(color='white', width=2)
+            ),
+            name='Key Points',
+            hovertemplate='<b>%{x}</b><br>Temperature: %{y:.1f}°C<extra></extra>'
+        ))
+        
+        fig.update_layout(
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            font=dict(color='white', family='Inter'),
+            margin=dict(l=20, r=20, t=40, b=20),
+            height=450,
+            xaxis=dict(
+                gridcolor='rgba(255,255,255,0.1)',
+                showgrid=True,
+                title=None,
+                tickformat='%b %d\n%H:%M'
+            ),
+            yaxis=dict(
+                gridcolor='rgba(255,255,255,0.1)',
+                showgrid=True,
+                title=dict(text='Temperature (°C)', font=dict(size=14)),
+                ticksuffix='°C'
+            ),
+            legend=dict(
+                orientation='h',
+                yanchor='bottom',
+                y=1.02,
+                xanchor='right',
+                x=1,
+                bgcolor='rgba(0,0,0,0)'
+            ),
+            hovermode='x unified'
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Two Column Layout - Daily Breakdown & Data Table
+        col_chart, col_table = st.columns([1.2, 1])
+        
+        with col_chart:
+            st.markdown('<div class="section-header">📅 Daily Temperature Range</div>', unsafe_allow_html=True)
+            
+            # Daily aggregation
+            df_full['date'] = df_full['time'].dt.date
+            daily_stats = df_full.groupby('date').agg({
+                'pred_temp_c': ['min', 'max', 'mean']
+            }).reset_index()
+            daily_stats.columns = ['date', 'min_temp', 'max_temp', 'avg_temp']
+            
+            # Create a beautiful bar chart
+            fig_daily = go.Figure()
+            
+            fig_daily.add_trace(go.Bar(
+                x=daily_stats['date'],
+                y=daily_stats['max_temp'] - daily_stats['min_temp'],
+                base=daily_stats['min_temp'],
+                marker=dict(
+                    color=daily_stats['avg_temp'],
+                    colorscale=[[0, '#4facfe'], [0.5, '#00f2fe'], [1, '#f093fb']],
+                    line=dict(width=0)
+                ),
+                hovertemplate='<b>%{x}</b><br>High: %{customdata[0]:.1f}°C<br>Low: %{customdata[1]:.1f}°C<br>Avg: %{customdata[2]:.1f}°C<extra></extra>',
+                customdata=daily_stats[['max_temp', 'min_temp', 'avg_temp']].values
+            ))
+            
+            fig_daily.update_layout(
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)',
+                font=dict(color='white', family='Inter'),
+                margin=dict(l=20, r=20, t=20, b=20),
+                height=350,
+                xaxis=dict(
+                    gridcolor='rgba(255,255,255,0.05)',
+                    showgrid=False,
+                    tickformat='%b %d'
+                ),
+                yaxis=dict(
+                    gridcolor='rgba(255,255,255,0.1)',
+                    showgrid=True,
+                    title=dict(text='Temperature (°C)', font=dict(size=12)),
+                    ticksuffix='°C'
+                ),
+                showlegend=False
+            )
+            
+            st.plotly_chart(fig_daily, use_container_width=True)
+        
+        with col_table:
+            st.markdown('<div class="section-header">📋 Detailed Forecast</div>', unsafe_allow_html=True)
+            
+            # Format the display dataframe
+            df_show = df_display.copy()
+            df_show['Time'] = df_show['time'].dt.strftime('%b %d, %H:%M')
+            df_show['Temperature'] = df_show['pred_temp_c'].apply(lambda x: f"{x:.1f}°C")
+            df_show['Hour'] = df_show['hour_ahead']
+            df_show['Emoji'] = df_show['pred_temp_c'].apply(get_temp_emoji)
+            
+            st.dataframe(
+                df_show[['Time', 'Temperature', 'Emoji']].head(20),
+                use_container_width=True,
+                hide_index=True,
+                height=350
+            )
+
+        # Caption
+        st.markdown(f"""
+        <div style="text-align: center; padding: 1rem; color: rgba(255,255,255,0.5); font-size: 0.85rem;">
+            📊 Last historical data: <strong>{last_time.strftime('%Y-%m-%d %H:%M')}</strong> | 
+            🤖 AI Model: LSTM Neural Network | 
+            ⚡ Data Source: Open-Meteo API
+        </div>
+        """, unsafe_allow_html=True)
+
+    except Exception as e:
+        st.error(f"❌ Error generating forecast: {e}")
+else:
+    # Welcome state
+    st.markdown("""
+    <div class="glass-card" style="text-align: center; padding: 3rem;">
+        <div style="font-size: 5rem; margin-bottom: 1rem;" class="weather-icon-float">🌤️</div>
+        <div style="font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 0.5rem;">
+            Ready to Predict the Weather?
+        </div>
+        <div style="color: rgba(255,255,255,0.6); font-size: 1.1rem;">
+            Select a city above and click <strong>Generate Forecast</strong> to see AI-powered predictions
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# =========================
+# Footer with Social Links
+# =========================
+st.markdown("""
+<div class="footer">
+    <div class="footer-title">👨‍💻 Created by Mayank Goyal</div>
+    <div class="social-links">
+        <a href="https://www.linkedin.com/in/mayank-goyal-mg09/" target="_blank" class="social-btn linkedin">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.97 0-1.75-.79-1.75-1.76s.78-1.75 1.75-1.75 1.75.78 1.75 1.75-.78 1.76-1.75 1.76zm13.5 11.27h-3v-5.5c0-1.38-1.12-2.5-2.5-2.5s-2.5 1.12-2.5 2.5v5.5h-3v-10h3v1.5c.88-1.32 2.36-2.5 4-2.5 2.76 0 4 2.24 4 5v6z"/>
+            </svg>
+            LinkedIn
+        </a>
+        <a href="https://github.com/mayank-goyal09" target="_blank" class="social-btn github">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.63 0-12 5.37-12 12 0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57a12.02 12.02 0 0 0 8.19-11.385c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            GitHub
+        </a>
+        <a href="https://mayank-goyal09.github.io/" target="_blank" class="social-btn portfolio">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            Portfolio
+        </a>
+    </div>
+    <div class="footer-credit">
+        Built with <span>❤️</span> using Deep Learning & Streamlit | © 2026 WeatherLens AI
+    </div>
+</div>
+""", unsafe_allow_html=True)

@@ -117,3 +117,115 @@ graph LR
     style E fill:#f093fb,color:#fff
     style G fill:#00f2fe,color:#000
 ```
+
+### **The Pipeline Breakdown:**
+
+<table>
+<tr>
+<td>
+
+#### 📡 **1. Data Collection**
+Fetch hourly historical weather data from **Open-Meteo** including:
+- Temperature (2m)
+- Relative Humidity
+- Pressure (MSL)
+- Wind Speed (10m)
+
+</td>
+<td>
+
+#### 🔄 **2. Sequence Engineering**
+Transform raw data into supervised sequences:
+- **Input**: Last 30 days (720 hours)
+- **Output**: Next 7 days (168 hours)
+- Sliding window approach
+
+</td>
+</tr>
+<tr>
+<td>
+
+#### 🧠 **3. LSTM Architecture**
+Multi-layer LSTM network with:
+- Stacked LSTM layers
+- Dropout regularization
+- Dense output layer (168 neurons)
+- Adam optimizer
+
+</td>
+<td>
+
+#### 📊 **4. Inference & Display**
+Real-time predictions served via:
+- City-specific last 30-day window
+- Temperature forecast in °C
+- Interactive Plotly visualizations
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📈 **MODEL PERFORMANCE**
+
+<div align="center">
+
+### 🏆 **Beating the Baseline**
+
+</div>
+
+| **Metric** | **LSTM Model** | **Naive Baseline** | **Improvement** |
+|:----------:|:--------------:|:------------------:|:---------------:|
+| 📉 **MSE** | Low | Higher | ✅ Significantly Better |
+| 📏 **MAE** | Low | Higher | ✅ Significantly Better |
+| 🎯 **Day 1** | Accurate | Moderate | ✅ Outperforms |
+| 📅 **Days 2-7** | Consistent | Degrades | ✅ Stable Performance |
+
+> 💡 **The naive persistence baseline** simply predicts "tomorrow = today." Our LSTM captures complex temporal patterns that this baseline misses entirely.
+
+---
+
+## 🎨 **DASHBOARD EXPERIENCE**
+
+<div align="center">
+
+### ✨ **Premium UI with Glassmorphism Design**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+#### 🏠 **Home View**
+- **Hero Section** with gradient animations
+- **Feature Cards** showcasing capabilities
+- **City Selector** dropdown
+- **Generate Forecast** action button
+
+</td>
+<td width="50%">
+
+#### 📊 **Results View**
+- **7-Day Line Chart** (hourly temperatures)
+- **Daily Temperature Range** bar chart
+- **Detailed Forecast Table** with emojis
+- **Product-style display** (hourly Day 1, 4-hour steps Days 2-7)
+
+</td>
+</tr>
+</table>
+
+### **🎯 Design Highlights:**
+
+```
+✨ Dark mode with vibrant gradients
+✨ Glassmorphism card effects  
+✨ Smooth animations & transitions
+✨ Interactive Plotly charts
+✨ Weather condition emojis
+✨ Responsive mobile layout
+```
+
+---

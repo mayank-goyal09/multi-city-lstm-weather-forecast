@@ -229,3 +229,193 @@ Real-time predictions served via:
 ```
 
 ---
+
+## 📂 **PROJECT STRUCTURE**
+
+```
+🌦️ WeatherLens-AI/
+│
+├── 📊 app.py                              # Streamlit dashboard application
+├── 🧠 main.ipynb                          # EDA, training & evaluation notebook
+├── ⚙️ weather_api.py                      # Open-Meteo data fetching utilities
+│
+├── 🗂️ Data & Models
+│   ├── weather_hourly_history_openmeteo.csv   # Historical training data
+│   ├── best_lstm_weather.h5               # Trained model checkpoint
+│   ├── weather_lstm_7day.h5               # Final model file
+│   └── weather_lstm_7day.weights.h5       # Model weights
+│
+├── 📦 requirements.txt                    # Project dependencies
+└── 📖 README.md                           # You are here! 🎉
+```
+
+---
+
+## 🚀 **QUICK START GUIDE**
+
+<div align="center">
+
+![Quick Start](https://user-images.githubusercontent.com/74038190/212257454-16e3712e-945a-4ca2-b238-408ad0bf87e6.gif)
+
+</div>
+
+### **Step 1: Clone the Repository** 📥
+
+```bash
+git clone https://github.com/mayank-goyal09/WeatherLens-AI.git
+cd WeatherLens-AI
+```
+
+### **Step 2: Create Virtual Environment** 🐍
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+### **Step 3: Install Dependencies** 📦
+
+```bash
+pip install -r requirements.txt
+```
+
+### **Step 4: Launch the Dashboard** 🎯
+
+```bash
+streamlit run app.py
+```
+
+### **Step 5: Open in Browser** 🌐
+
+Navigate to: **`http://localhost:8501`**
+
+> 🎉 **That's it!** Select a city, hit "Generate Forecast," and watch the magic!
+
+---
+
+## 🎮 **HOW TO USE**
+
+<table>
+<tr>
+<td>
+
+### 🔹 **Generate Predictions**
+
+1. Open the Streamlit dashboard
+2. Select a city from the dropdown
+3. Click **"🚀 Generate Forecast"**
+4. View the 7-day temperature prediction
+5. Explore interactive charts
+
+</td>
+<td>
+
+### 🔹 **Analyze Forecasts**
+
+1. Check the **7-Day Line Chart** for trends
+2. Review **Daily Temperature Range** bars
+3. Scroll through **Detailed Forecast** table
+4. Notice weather condition emojis (☀️🌤️🌧️)
+5. Compare hourly vs 4-hour step displays
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📚 **SKILLS DEMONSTRATED**
+
+<div align="center">
+
+### **A Portfolio-Ready Deep Learning Project**
+
+</div>
+
+| **Category** | **Skills** |
+|:-------------|:-----------|
+| 🧠 **Deep Learning** | LSTM architecture design, multi-step sequence forecasting |
+| 📊 **Time-Series Analysis** | Sliding window sequences, feature engineering |
+| 🔧 **Data Engineering** | API data collection, preprocessing pipelines |
+| 🐍 **Python Development** | Clean code, modular architecture |
+| 🎨 **UI/UX Design** | Glassmorphism, responsive design, premium aesthetics |
+| 📈 **Data Visualization** | Interactive Plotly charts, meaningful displays |
+| 🚀 **MLOps** | Model saving/loading, Streamlit Cloud deployment |
+| 📐 **Model Evaluation** | MSE/MAE metrics, baseline comparisons |
+
+---
+
+## 🔮 **FUTURE ENHANCEMENTS**
+
+- [ ] 🌍 Add more cities worldwide
+- [ ] 🌧️ Predict additional weather variables (humidity, wind, precipitation)
+- [ ] 📊 Implement attention mechanisms (Transformer architecture)
+- [ ] 📈 Add confidence intervals for predictions
+- [ ] 🔄 Real-time model retraining pipeline
+- [ ] 📱 Progressive Web App (PWA) version
+- [ ] 🌐 Multi-language support
+- [ ] 📍 User location-based predictions
+- [ ] 🤖 Weather alerts and notifications
+
+---
+
+## 🤝 **CONTRIBUTING**
+
+<div align="center">
+
+![Contributing](https://user-images.githubusercontent.com/74038190/212257465-7ce8d493-cac5-494e-982a-5a9deb852c4b.gif)
+
+</div>
+
+Contributions are **always welcome**! 🎉
+
+1. 🍴 Fork the Project
+2. 🌱 Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. 💾 Commit your Changes (`git commit -m 'Add AmazingFeature'`)
+4. 📤 Push to the Branch (`git push origin feature/AmazingFeature`)
+5. 🎁 Open a Pull Request
+
+---
+
+## 📝 **LICENSE**
+
+Distributed under the **MIT License**. See `LICENSE` for more information.
+
+---
+
+## 👨‍💻 **CONNECT WITH ME**
+
+<div align="center">
+
+[![GitHub](https://img.shields.io/badge/GitHub-mayank--goyal09-181717?style=for-the-badge&logo=github)](https://github.com/mayank-goyal09)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Mayank_Goyal-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/mayank-goyal-4b8756363/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit_Site-4facfe?style=for-the-badge&logo=googlechrome&logoColor=white)](https://mayank-portfolio-delta.vercel.app/)
+[![Email](https://img.shields.io/badge/Email-itsmaygal09@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:itsmaygal09@gmail.com)
+
+<br/>
+
+**Mayank Goyal**  
+📊 Data Analyst | 🧠 Deep Learning Enthusiast | 🐍 Python Developer  
+💼 Data Analyst Intern @ SpacECE Foundation India
+
+</div>
+
+---
+
+## ⭐ **SHOW YOUR SUPPORT**
+
+<div align="center">
+
+Give a ⭐️ if this project helped you understand LSTM forecasting and inspired your weather prediction projects!
+
+<br/>
+
+### 🌦️ **Built with Deep Learning & ❤️ by Mayank Goyal**
+
+*"Predicting tomorrow's weather, one LSTM layer at a time!"* 🧠🌡️
+
+<br/>
+
+![Footer](https://capsule-render.vercel.app/api?type=waving&color=0:4facfe,100:00f2fe&height=120&section=footer)
+
+</div>

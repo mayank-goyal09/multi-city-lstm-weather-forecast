@@ -36,6 +36,10 @@
 <tr>
 <td width="50%">
 
+### 🎯 **What This Project Does**
+
+This end-to-end **deep learning weather forecasting system** uses **LSTM (Long Short-Term Memory)** neural networks trained on historical hourly data from **Open-Meteo** to predict temperature for the next **7 days (168 hours)** across **4 major global cities**.
+
 **The Complete Pipeline:**
 - 📡 **Data Collection** → Open-Meteo hourly historical API
 - 🔄 **Sequence Transformation** → Supervised learning sequences
@@ -98,7 +102,18 @@
 
 ---
 
-### 🎯 **What This Project Does**
+## 🔬 **HOW THE LSTM MODEL WORKS**
 
-This end-to-end **deep learning weather forecasting system** uses **LSTM (Long Short-Term Memory)** neural networks trained on historical hourly data from **Open-Meteo** to predict temperature for the next **7 days (168 hours)** across **4 major global cities**.
-
+```mermaid
+graph LR
+    A[🌐 Open-Meteo API] --> B[📥 Historical Data]
+    B --> C[🔄 Sequence Creation]
+    C --> D[📊 30-Day Windows]
+    D --> E[🧠 LSTM Network]
+    E --> F[🌡️ 7-Day Predictions]
+    F --> G[📱 Streamlit Dashboard]
+    
+    style A fill:#4facfe,color:#fff
+    style E fill:#f093fb,color:#fff
+    style G fill:#00f2fe,color:#000
+```
